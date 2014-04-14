@@ -10,4 +10,7 @@
 
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *City;
+@property (weak, nonatomic) IBOutlet UILabel *temp;
+@property (weak, nonatomic) IBOutlet UITextField *getCity;
 @end
