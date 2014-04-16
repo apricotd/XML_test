@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol dataUpdate
 
+-(void)setValue;
+
+@end
 
 
 @interface ZFWeather : NSObject

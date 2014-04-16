@@ -75,6 +75,7 @@
 		7D0C506218F8D4C8001898A0 /* ZFWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFWeather.h; sourceTree = "<group>"; };
 		7D0C506318F8D4C8001898A0 /* ZFWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFWeather.m; sourceTree = "<group>"; };
 		7D3341C818FBD131002DB13D /* sunny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sunny.png; path = ../../../Desktop/sunny.png; sourceTree = "<group>"; };
+		7D3FAF7218FE6915006FA8DA /* passValueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = passValueDelegate.h; sourceTree = "<group>"; };
 		7D5E8E4F18F9100000B48095 /* woeidPaser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = woeidPaser.h; sourceTree = "<group>"; };
 		7D5E8E5018F9100000B48095 /* woeidPaser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = woeidPaser.m; sourceTree = "<group>"; };
 		7D5EFA2E18FCDC9C00F5AC69 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
@@ -125,6 +126,7 @@
 		7D0C501618F8CA02001898A0 = {
 			isa = PBXGroup;
 			children = (
+				7D3FAF7218FE6915006FA8DA /* passValueDelegate.h */,
 				7D0C502818F8CA02001898A0 /* XML_test */,
 				7D3341CA18FBF3A8002DB13D /* Resource */,
 				7D0C504A18F8CA02001898A0 /* XML_testTests */,

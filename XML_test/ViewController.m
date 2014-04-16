@@ -24,6 +24,22 @@
 
 }
 
+-(void)PassValue:(ZFWeather *)weather
+{
+    City.text = weather.city;
+    NSMutableString *tempstr = [[NSMutableString alloc] initWithFormat:@"%d",weather.temperature];
+    [tempstr appendString:@"℃"];
+    temp.text = tempstr;
+    Condition.text = weather.condition;
+    
+    self.weekLabel.text=weather.week;
+    [self.TodayLabel setHidden:NO];
+    if ([weather.high count]) {
+        self.High_Today.text = [weather.high objectAtIndex:0];
+        self.Low_Today.text  = [weather.low  objectAtIndex:0];
+    }
+}
+
 -(IBAction)check:(id)sender
 {
     NSString *cityname = self.getCity.text;
@@ -33,17 +49,13 @@
     NSLog(@"%@",woeid);
     
     TRBookXmlParser *parser = [[TRBookXmlParser alloc] init];
-    ZFWeather *weather = [parser beginParseByUrl:[NSString stringWithFormat:@"http://weather.yahooapis.com/forecastrss?w=%@&u=c",woeid]];
+    parser.delegate =self;
+    ZFWeather *weather = [parser beginParseByUrl1:[NSString stringWithFormat:@"http://weather.yahooapis.com/forecastrss?w=%@&u=c",woeid]];
     NSLog(@"%@",weather);
-    
     //conImage.image = [UIImage imageNamed:@"sunny"];
-    City.text = cityname;
-    NSMutableString *tempstr = [[NSMutableString alloc] initWithFormat:@"%d",weather.temperature];
-    [tempstr appendString:@"℃"];
-    temp.text = tempstr;
-    Condition.text = weather.condition;
-    self.weekLabel.text=weather.week;
-    [self.TodayLabel setHidden:NO];
+
+    
+    
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 

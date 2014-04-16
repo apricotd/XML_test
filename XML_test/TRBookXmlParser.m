@@ -43,10 +43,27 @@
         NSLog(@"解析成功");
     }
     return self.weather;
-    
 }
 
--(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+-(ZFWeather *)beginParseByUrl1:(NSString *)url
+{
+    self.data = [[NSMutableData alloc]init];
+    NSURL *req =[[NSURL alloc] initWithString:url];
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:req];
+    [NSURLConnection connectionWithRequest:request delegate:self];
+
+    return self.weather;
+}
+
+-(ZFWeather *)finish;
+{
+    return self.weather;
+}
+
+-(void)parser:(NSXMLParser *)parser didStartElement
+             :(NSString *)elementName namespaceURI
+             :(NSString *)namespaceURI qualifiedName
+             :(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
     
     if ([elementName isEqualToString:@"yweather:location"]) {
@@ -71,7 +88,8 @@
     
 }
 
--(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+-(void)parser:(NSXMLParser *)parser foundCharacters
+             :(NSString *)string
 {
     self.currentString = string;
 }
@@ -89,6 +107,27 @@
         NSString *date = self.currentString;
         self.weather.week = [date substringWithRange:NSMakeRange(0,3)];
     }
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [self.data appendData:data];
+    NSLog(@"%@",self.data);
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:self.data];
+    //self.books = [[NSMutableArray alloc]initWithCapacity:20];
+    
+    self.weather = [[ZFWeather alloc]init];
+    self.weather.high = [[NSMutableArray alloc]initWithCapacity:6];
+    self.weather.low = [[NSMutableArray alloc]initWithCapacity:6];
+    [parser setDelegate:self];
+    if ([parser parse]) {
+        NSLog(@"解析成功");
+    }
+    [self.delegate PassValue:self.weather];
 }
 
 @end

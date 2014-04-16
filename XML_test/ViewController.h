@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "passValueDelegate.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<PassValueDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *City;
 @property (weak, nonatomic) IBOutlet UILabel *temp;
@@ -17,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIView *temp_condition;
 @property (weak, nonatomic) IBOutlet UILabel *weekLabel;
 @property (weak, nonatomic) IBOutlet UILabel *TodayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *High_Today;
+@property (weak, nonatomic) IBOutlet UILabel *Low_Today;
 
 
 @end
