@@ -13,4 +13,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *City;
 @property (weak, nonatomic) IBOutlet UILabel *temp;
 @property (weak, nonatomic) IBOutlet UITextField *getCity;
+@property (weak, nonatomic) IBOutlet UILabel *Condition;
+@property (weak, nonatomic) IBOutlet UIView *temp_condition;
+@property (weak, nonatomic) IBOutlet UILabel *weekLabel;
+@property (weak, nonatomic) IBOutlet UILabel *TodayLabel;
+
+
 @end

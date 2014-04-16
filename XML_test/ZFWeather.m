@@ -10,7 +10,7 @@
 
 @implementation ZFWeather
 
-@synthesize city,region,country,temperature;
+@synthesize city,region,country,temperature,condition,week;
 
 -(NSString *)description
 {

@@ -11,20 +11,16 @@
 #import "TRBookXmlParser.h"
 #import "woeidPaser.h"
 
-@interface ViewController ()
-
-@end
-
 @implementation ViewController
 
-@synthesize City,temp;
+@synthesize City,temp,Condition;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.TodayLabel setHidden:YES];
 	// Do any additional setup after loading the view, typically from a nib.
     //NSString *xmlPath = [[NSBundle mainBundle]pathForResource:@"forecastrss" ofType:@"xml"];
-
 
 }
 
@@ -37,22 +33,29 @@
     NSLog(@"%@",woeid);
     
     TRBookXmlParser *parser = [[TRBookXmlParser alloc] init];
-    NSArray *books = [parser beginParseByUrl:[NSString stringWithFormat:@"http://weather.yahooapis.com/forecastrss?w=%@&u=c",woeid]];
+    ZFWeather *weather = [parser beginParseByUrl:[NSString stringWithFormat:@"http://weather.yahooapis.com/forecastrss?w=%@&u=c",woeid]];
+    NSLog(@"%@",weather);
     
-    for (ZFWeather *weather in books){
-        NSLog(@"%@",weather);
-    }
-    ZFWeather *weather = [books objectAtIndex:0];
-    City.text = weather.city;
+    //conImage.image = [UIImage imageNamed:@"sunny"];
+    City.text = cityname;
     NSMutableString *tempstr = [[NSMutableString alloc] initWithFormat:@"%d",weather.temperature];
     [tempstr appendString:@"℃"];
     temp.text = tempstr;
+    Condition.text = weather.condition;
+    self.weekLabel.text=weather.week;
+    [self.TodayLabel setHidden:NO];
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)View_TouchDown:(id)sender {
+    // 发送resignFirstResponder.
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
 @end

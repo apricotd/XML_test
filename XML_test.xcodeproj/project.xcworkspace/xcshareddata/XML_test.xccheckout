@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9756256B-E411-435E-9DAE-4289BA87C29A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>XML_test</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>902B0E4E-8735-45AD-B965-F7045FA9D158</key>
+		<string>https://github.com/apricotd/XML_test.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>XML_test.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>902B0E4E-8735-45AD-B965-F7045FA9D158</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/apricotd/XML_test.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>902B0E4E-8735-45AD-B965-F7045FA9D158</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>902B0E4E-8735-45AD-B965-F7045FA9D158</string>
+			<key>IDESourceControlWCCName</key>
+			<string>XML_test</string>
+		</dict>
+	</array>
+</dict>
+</plist>

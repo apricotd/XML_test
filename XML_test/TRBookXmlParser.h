@@ -11,14 +11,16 @@
 #import <Foundation/Foundation.h>
 #import "TRBook.h"
 #import "ZFWeather.h"
+#import "AFNetworking.h"
 
 @interface TRBookXmlParser : NSObject<NSXMLParserDelegate>
 
-@property (nonatomic,strong)NSMutableArray *books;
+//@property (nonatomic,strong)NSMutableArray *books;
 @property (nonatomic,strong)ZFWeather *weather;
 @property (nonatomic,copy)NSString *currentString;
 
--(NSMutableArray *)beginParseByPath:(NSString *)path;
--(NSMutableArray *)beginParseByUrl:(NSString *)url;
+//-(void *)beginParseByPath:(NSString *)path;
+-(ZFWeather *)beginParseByUrl:(NSString *)url;
+-(ZFWeather *)beginParseByUrl2:(NSString *)url;
 
 @end
