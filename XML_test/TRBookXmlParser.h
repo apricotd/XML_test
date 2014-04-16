@@ -11,7 +11,6 @@
 #import <Foundation/Foundation.h>
 #import "TRBook.h"
 #import "ZFWeather.h"
-#import "AFNetworking.h"
 #import "ViewController.h"
 #import "passValueDelegate.h"
 
@@ -26,7 +25,7 @@
 @property(nonatomic,assign) NSObject<PassValueDelegate> *delegate;
 //-(void *)beginParseByPath:(NSString *)path;
 -(ZFWeather *)beginParseByUrl:(NSString *)url;
--(ZFWeather *)beginParseByUrl2:(NSString *)url;
+//-(ZFWeather *)beginParseByUrl2:(NSString *)url;
 -(ZFWeather *)beginParseByUrl1:(NSString *)url;
 
 @end

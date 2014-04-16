@@ -11,19 +11,19 @@
 @implementation TRBookXmlParser
 
 
--(ZFWeather *)beginParseByUrl2:(NSString *)url
-{
- NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://weather.yahooapis.com/forecastrss?w=2161853&u=c"]];
- AFXMLRequestOperation *operation = [AFXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *XMLParser) {
- XMLParser.delegate = self;
- [XMLParser parse];
- } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *XMLParser) {
-     XMLParser.delegate = self;
-     [XMLParser parse];
- }];
- [operation start];
-    return self.weather;
-}
+//-(ZFWeather *)beginParseByUrl2:(NSString *)url
+//{
+// NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://weather.yahooapis.com/forecastrss?w=2161853&u=c"]];
+// AFXMLRequestOperation *operation = [AFXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *XMLParser) {
+// XMLParser.delegate = self;
+// [XMLParser parse];
+// } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *XMLParser) {
+//     XMLParser.delegate = self;
+//     [XMLParser parse];
+// }];
+// [operation start];
+//    return self.weather;
+//}
 
 
 -(ZFWeather *)beginParseByUrl:(NSString *)url
@@ -65,7 +65,6 @@
              :(NSString *)namespaceURI qualifiedName
              :(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    
     if ([elementName isEqualToString:@"yweather:location"]) {
         NSLog(@"%@",attributeDict);
         
