@@ -15,17 +15,20 @@
 #import "passValueDelegate.h"
 
 @interface TRBookXmlParser : NSObject<NSXMLParserDelegate,NSURLConnectionDataDelegate>
+{
+//    ZFWeather *weather;
+}
 
 //@property (nonatomic,strong)NSMutableArray *books;
 @property (nonatomic,strong)ZFWeather *weather;
 @property (nonatomic,copy)NSString *currentString;
-@property NSMutableData *data;
-@property BOOL isFinish;
+@property (nonatomic,copy)NSString *woeid;
+@property (atomic,strong)NSMutableData *data;
 
-@property(nonatomic,assign) NSObject<PassValueDelegate> *delegate;
+@property(nonatomic,strong) NSObject<PassValueDelegate>* delegate;
 //-(void *)beginParseByPath:(NSString *)path;
--(ZFWeather *)beginParseByUrl:(NSString *)url;
+//-(ZFWeather *)beginParseByUrl:(NSString *)url;
 //-(ZFWeather *)beginParseByUrl2:(NSString *)url;
--(ZFWeather *)beginParseByUrl1:(NSString *)url;
+-(void)beginParseByUrl1:(NSString *)url;
 
 @end
