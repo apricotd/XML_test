@@ -10,7 +10,14 @@
 
 @implementation TRBookXmlParser
 
-
+-(id)init
+{
+    if (self =[super init]) {
+        self.weather = [[ZFWeather alloc]init];
+        self.data = [[NSMutableData alloc]init];
+    }
+    return self;
+}
 //-(ZFWeather *)beginParseByUrl2:(NSString *)url
 //{
 // NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://weather.yahooapis.com/forecastrss?w=2161853&u=c"]];
@@ -26,48 +33,39 @@
 //}
 
 
--(ZFWeather *)beginParseByUrl:(NSString *)url
+//-(ZFWeather *)beginParseByUrl:(NSString *)url
+//{
+//    NSURL *req =[[NSURL alloc] initWithString:url];
+//    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:req cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:100];
+//    //NSData *data= [NSData dataWithContentsOfURL:req]; //
+//    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+//    //self.books = [[NSMutableArray alloc]initWithCapacity:20];
+//    [parser setDelegate:self];
+//    if ([parser parse]) {
+//        NSLog(@"解析成功");
+//    }
+//    return self.weather;
+//}
+
+-(void)beginParseByUrl1:(NSString *)url
 {
+    self.woeid = [url substringWithRange:NSMakeRange(43, 7)];
     NSURL *req =[[NSURL alloc] initWithString:url];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:req cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:100];
-    //NSData *data= [NSData dataWithContentsOfURL:req]; //
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-    //self.books = [[NSMutableArray alloc]initWithCapacity:20];
-    
-    self.weather = [[ZFWeather alloc]init];
-    self.weather.high = [[NSMutableArray alloc]initWithCapacity:6];
-    self.weather.low = [[NSMutableArray alloc]initWithCapacity:6];
-    [parser setDelegate:self];
-    if ([parser parse]) {
-        NSLog(@"解析成功");
-    }
-    return self.weather;
-}
-
--(ZFWeather *)beginParseByUrl1:(NSString *)url
-{
-    self.data = [[NSMutableData alloc]init];
-    NSURL *req =[[NSURL alloc] initWithString:url];
-    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:req];
+    NSLog(@"%@",request);
     [NSURLConnection connectionWithRequest:request delegate:self];
 
-    return self.weather;
 }
 
--(ZFWeather *)finish;
-{
-    return self.weather;
-}
-
--(void)parser:(NSXMLParser *)parser didStartElement
-             :(NSString *)elementName namespaceURI
-             :(NSString *)namespaceURI qualifiedName
-             :(NSString *)qName attributes:(NSDictionary *)attributeDict
+-(void)parser:(NSXMLParser *)parser
+didStartElement:(NSString *)elementName
+ namespaceURI:(NSString *)namespaceURI
+qualifiedName:(NSString *)qName
+   attributes:(NSDictionary *)attributeDict
 {
     if ([elementName isEqualToString:@"yweather:location"]) {
         NSLog(@"%@",attributeDict);
-        
         self.weather.city = [attributeDict objectForKey:@"city"];
         self.weather.region = [attributeDict objectForKey:@"region"];
         self.weather.country = [attributeDict objectForKey:@"country"];
@@ -108,7 +106,16 @@
     }
 }
 
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+
+-(void)connection:(NSURLConnection *)connection
+ didFailWithError:(NSError *)error
+{
+    NSLog(@"%@",error);
+    [self beginParseByUrl1:[NSString stringWithFormat:@"http://weather.yahooapis.com/forecastrss?w=%@&u=c",self.woeid]];
+}
+
+-(void)connection:(NSURLConnection *)connection
+   didReceiveData:(NSData *)data
 {
     [self.data appendData:data];
     NSLog(@"%@",self.data);
@@ -119,14 +126,12 @@
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:self.data];
     //self.books = [[NSMutableArray alloc]initWithCapacity:20];
     
-    self.weather = [[ZFWeather alloc]init];
-    self.weather.high = [[NSMutableArray alloc]initWithCapacity:6];
-    self.weather.low = [[NSMutableArray alloc]initWithCapacity:6];
     [parser setDelegate:self];
     if ([parser parse]) {
         NSLog(@"解析成功");
     }
     [self.delegate PassValue:self.weather];
 }
+
 
 @end
