@@ -15,13 +15,17 @@
 
 @synthesize City,temp,Condition;
 
+//-(NSString *)dataFilePath
+//{
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+//}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.TodayLabel setHidden:YES];
 	// Do any additional setup after loading the view, typically from a nib.
     //NSString *xmlPath = [[NSBundle mainBundle]pathForResource:@"forecastrss" ofType:@"xml"];
-
 }
 
 -(void)PassValue:(ZFWeather *)weather
@@ -31,7 +35,6 @@
     [tempstr appendString:@"℃"];
     temp.text = tempstr;
     Condition.text = weather.condition;
-    
     self.weekLabel.text=weather.week;
     [self.TodayLabel setHidden:NO];
     if ([weather.high count]) {
@@ -50,8 +53,9 @@
     
     TRBookXmlParser *parser = [[TRBookXmlParser alloc] init];
     parser.delegate =self;
-    ZFWeather *weather = [parser beginParseByUrl1:[NSString stringWithFormat:@"http://weather.yahooapis.com/forecastrss?w=%@&u=c",woeid]];
-    NSLog(@"%@",weather);
+    [parser beginParseByUrl:[NSString stringWithFormat:
+                                                        @"http://weather.yahooapis.com/forecastrss?w=%@&u=c",woeid]];
+//    NSLog(@"%@",weather);
     //conImage.image = [UIImage imageNamed:@"sunny"];
 
     

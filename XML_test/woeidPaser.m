@@ -22,7 +22,6 @@
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
 //    self.books = [NSMutableArray array];
-    
     [parser setDelegate:self];
     if ([parser parse]) {
         NSLog(@"解析成功");

@@ -17,7 +17,6 @@
     if (self = [super init]) {
         self.high = [[NSMutableArray alloc]initWithCapacity:6];
         self.low = [[NSMutableArray alloc]initWithCapacity:6];
-        
     }
     return self;
 }

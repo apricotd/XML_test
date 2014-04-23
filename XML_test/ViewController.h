@@ -21,5 +21,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *High_Today;
 @property (weak, nonatomic) IBOutlet UILabel *Low_Today;
 
+-(IBAction)check:(id)sender;
 
 @end

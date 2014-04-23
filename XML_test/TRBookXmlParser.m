@@ -33,29 +33,35 @@
 //}
 
 
-//-(ZFWeather *)beginParseByUrl:(NSString *)url
-//{
-//    NSURL *req =[[NSURL alloc] initWithString:url];
-//    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:req cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:100];
-//    //NSData *data= [NSData dataWithContentsOfURL:req]; //
-//    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-//    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-//    //self.books = [[NSMutableArray alloc]initWithCapacity:20];
-//    [parser setDelegate:self];
-//    if ([parser parse]) {
-//        NSLog(@"解析成功");
-//    }
-//    return self.weather;
-//}
+-(void)beginParseByUrl:(NSString *)url
+{
+    
+    NSURL *url1= [NSURL URLWithString:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url1];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation,id responseObject)
+    {
+        NSXMLParser *XMLParser = [[NSXMLParser alloc]initWithData:responseObject];
+        [XMLParser setShouldProcessNamespaces:YES];
+        
+        [XMLParser setDelegate:self];
+        [XMLParser parse];
+    }
+    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alertView show];
+    }];
+    [operation start];
+}
 
 -(void)beginParseByUrl1:(NSString *)url
 {
-    self.woeid = [url substringWithRange:NSMakeRange(43, 7)];
+    self.woeid = [url substringWithRange:NSMakeRange(43, 7)];//获取woeid，以便在网络连接失败时，重新向API发送请求。
     NSURL *req =[[NSURL alloc] initWithString:url];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:req cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:100];
     NSLog(@"%@",request);
     [NSURLConnection connectionWithRequest:request delegate:self];
-
 }
 
 -(void)parser:(NSXMLParser *)parser
@@ -64,21 +70,21 @@ didStartElement:(NSString *)elementName
 qualifiedName:(NSString *)qName
    attributes:(NSDictionary *)attributeDict
 {
-    if ([elementName isEqualToString:@"yweather:location"]) {
+    if ([elementName isEqualToString:@"yweather:location"] || [qName isEqualToString:@"yweather:location"]) {
         NSLog(@"%@",attributeDict);
         self.weather.city = [attributeDict objectForKey:@"city"];
         self.weather.region = [attributeDict objectForKey:@"region"];
         self.weather.country = [attributeDict objectForKey:@"country"];
         //[self.books addObject:self.weather];
     }
-    if ([elementName isEqualToString:@"yweather:condition"]) {
+    if ([elementName isEqualToString:@"yweather:condition"] || [qName isEqualToString:@"yweather:condition"]) {
         self.weather.temperature = (int)[[attributeDict objectForKey:@"temp"] integerValue];
         self.weather.condition = [attributeDict objectForKey:@"text"];
     }
-    if ([elementName isEqualToString:@"lastBuildDate"]) {
+    if ([elementName isEqualToString:@"lastBuildDate"] || [qName isEqualToString:@"lastBuildDate"]) {
         ;
     }
-    if ([elementName isEqualToString:@"yweather:forecast"]) {
+    if ([elementName isEqualToString:@"yweather:forecast"] || [elementName isEqualToString:@"yweather:forecast"]) {
         [self.weather.high addObject:[attributeDict objectForKey:@"high"]];
         [self.weather.low addObject:[attributeDict objectForKey:@"low"]];
     }
@@ -130,6 +136,11 @@ qualifiedName:(NSString *)qName
     if ([parser parse]) {
         NSLog(@"解析成功");
     }
+    [self.delegate PassValue:self.weather];
+}
+
+-(void)parserDidEndDocument:(NSXMLParser *)parser
+{
     [self.delegate PassValue:self.weather];
 }
 

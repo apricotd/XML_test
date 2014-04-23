@@ -13,6 +13,7 @@
 #import "ZFWeather.h"
 #import "ViewController.h"
 #import "passValueDelegate.h"
+#import "AFNetworking.h"
 
 @interface TRBookXmlParser : NSObject<NSXMLParserDelegate,NSURLConnectionDataDelegate>
 {
@@ -21,13 +22,13 @@
 
 //@property (nonatomic,strong)NSMutableArray *books;
 @property (nonatomic,strong)ZFWeather *weather;
-@property (nonatomic,copy)NSString *currentString;
-@property (nonatomic,copy)NSString *woeid;
+@property (nonatomic,strong)NSString *currentString;
+@property (nonatomic,strong)NSString *woeid;
 @property (atomic,strong)NSMutableData *data;
 
-@property(nonatomic,strong) NSObject<PassValueDelegate>* delegate;
+@property(nonatomic,retain) NSObject<PassValueDelegate>* delegate;
 //-(void *)beginParseByPath:(NSString *)path;
-//-(ZFWeather *)beginParseByUrl:(NSString *)url;
+-(void)beginParseByUrl:(NSString *)url;
 //-(ZFWeather *)beginParseByUrl2:(NSString *)url;
 -(void)beginParseByUrl1:(NSString *)url;
 
