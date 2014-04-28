@@ -50,8 +50,7 @@
     
     TRBookXmlParser *parser = [[TRBookXmlParser alloc] init];
     parser.delegate =self;
-    ZFWeather *weather = [parser beginParseByUrl1:[NSString stringWithFormat:@"http://weather.yahooapis.com/forecastrss?w=%@&u=c",woeid]];
-    NSLog(@"%@",weather);
+    [parser beginParseByUrl1:[NSString stringWithFormat:@"http://weather.yahooapis.com/forecastrss?w=%@&u=c",woeid]];
     //conImage.image = [UIImage imageNamed:@"sunny"];
 
     
